@@ -1,0 +1,3 @@
+from pdebench.data_gen import gen_constant_water_inflow
+
+gen_constant_water_inflow.main()

@@ -1,0 +1,74 @@
+work_dir: ${hydra:runtime.cwd}
+data_dir: data
+upload: false
+output_path: 2D_cwi_NA_NA
+name: 2d_cwi
+sim:
+  T_end: 10.0
+  n_time_steps: 1000
+  xdim: 128
+  ydim: 128
+  gravity: 1.0
+  dam_radius: 0.5
+  inner_height: 2.0
+  latent_val: 0.5
+  x_left: -2.5
+  x_right: 2.5
+  y_bottom: -2.5
+  y_top: 2.5
+  seed: ???
+plot:
+  dim: 2
+  channel_idx: 0
+  t_idx: 1.0
+  mode: gif
+  duration: 0.2
+  subsample: 10
+  use_color: false
+dataverse:
+  lib_name: pyDaRUS
+  dataset_id: doi:10.18419/darus-2922
+  metadatablocks:
+    citation:
+      author:
+      - name: Raphael Leiteritz
+        affiliation: Universität Stuttgart
+        identifier_scheme: ORCID
+        identifier: 0000-0001-8070-2384
+      description:
+      - text: 2D shallow-water equation dataset generated for the PDE benchmark paper
+        date: '2022'
+      contact:
+      - name: Raphael Leiteritz
+        affiliation: Universität Stuttgart
+        email: raphael.leiteritz@iws.uni-stuttgart.de
+      title: 2D shallow-water equation dataset
+      subject:
+      - computer_and__information__science
+      - physics
+    process:
+      processing_methods:
+      - name: FVM
+        description: Finite Volume Method is a spatial discretization method to calculate
+          spatial derivative in a Partial Differential Equation. It integrates the
+          fluxes at all discrete cell boundaries so that it ensures conservation.
+        parameters: cell length, cell width
+      method_parameters:
+      - name: cell length
+        symbol: dx
+        unit: m
+        value: 0.0390625
+      - name: cell width
+        symbol: dy
+        unit: m
+        value: 0.0390625
+      - name: time step size
+        symbol: dt
+        unit: s
+        value: 0.01
+      - name: total time
+        symbol: t
+        unit: s
+        value: 1
+    engMeta: {}
+    codeMeta: {}
