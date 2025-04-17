@@ -14,5 +14,5 @@ class ShallowWaterTruncateTransform():
         
     def __call__(self, data):
         # train with 60/40 split
-        train_time = int(self.length_ratio * len(frames))
-        return frames[:train_time]
+        train_time = int(self.length_ratio * len(data))
+        return data[:train_time]

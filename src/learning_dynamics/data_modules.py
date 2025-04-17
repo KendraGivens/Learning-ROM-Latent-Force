@@ -1,7 +1,7 @@
 import lightning as L
 import torch
-from .transforms import PendulumTruncateTransform
-from .datasets import PendulumDataset
+from .transforms import PendulumTruncateTransform, ShallowWaterTruncateTransform
+from .datasets import PendulumDataset, ShallowWaterDataset
 
 class PendulumDataModule(L.LightningDataModule):
     def __init__(
@@ -51,7 +51,7 @@ class PendulumDataModule(L.LightningDataModule):
             shuffle=False
         )
 
-class ShallowWaterModule(L.LightningDataModule):
+class ShallowWaterDataModule(L.LightningDataModule):
     def __init__(
         self,
         train_data_path=None,
@@ -68,14 +68,14 @@ class ShallowWaterModule(L.LightningDataModule):
         self.test_batch_size = test_batch_size
         self.val_split = val_split
         self.num_workers = num_workers
-        self.transform = PendulumTruncateTransform(self.val_split)
+        self.transform = ShallowWaterTruncateTransform(self.val_split)
 
     def setup(self, stage):
         if stage == "fit":
-            self.train_dataset = PendulumDataset(self.train_data_path, self.transform)
-            self.val_dataset = PendulumDataset(self.train_data_path)
+            self.train_dataset = ShallowWaterDataset(self.train_data_path, self.transform)
+            self.val_dataset = ShallowWaterDataset(self.train_data_path)
         elif stage == "test":
-            self.test_dataset = PendulumDataset(self.test_data_path)
+            self.test_dataset = ShallowWaterDataset(self.test_data_path)
 
     def train_dataloader(self):
         return torch.utils.data.DataLoader(

@@ -7,11 +7,11 @@ class PendulumDataset(torch.utils.data.Dataset):
 
         with open(path, "rb") as f:
             data = pickle.load(f)
-            self.thetas = data["thetas"]
+            self.thetas = data["thetas"] # num_samples, num_timepoints, 1
             self.winds = data["winds"]
-            self.frames = data["frames"]
-            self.time = data["time"]
-            self.dt = data["dt"]
+            self.frames = data["frames"] # num_samples, num_frames, px, py
+            self.time = data["time"] # 10
+            self.dt = data["dt"] # 0.1
             
         _, _, self.height, self.width = self.frames.shape
         self.transform = transform
@@ -32,9 +32,11 @@ class ShallowWaterDataset(torch.utils.data.Dataset):
 
         with open(path, "rb") as f:
             data = pickle.load(f)
-            self.frames = data["frames"]
-            self.time = data["time"]
-            self.dt = data["dt"]
+            self.frames = data["frames"] # num_samples, num_frames, px, py
+            self.latent_times = data["latent_times"] # num_samples, num_timepoints
+            self.latent_sins = data["latent_sins"] # num_samples, num_timepoints
+            self.time = data["time"] # 10
+            self.dt = data["dt"] 
             
         _, _, self.height, self.width = self.frames.shape
         self.transform = transform
