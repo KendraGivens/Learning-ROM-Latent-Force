@@ -1,8 +1,10 @@
 import lightning as L
 import torch
+import numpy as np
 from .transforms import PendulumTruncateTransform, ShallowWaterTruncateTransform
 from .datasets import PendulumDataset, ShallowWaterDataset
 
+# add norm
 class PendulumDataModule(L.LightningDataModule):
     def __init__(
         self,
@@ -68,12 +70,16 @@ class ShallowWaterDataModule(L.LightningDataModule):
         self.test_batch_size = test_batch_size
         self.val_split = val_split
         self.num_workers = num_workers
-        self.transform = ShallowWaterTruncateTransform(self.val_split)
 
     def setup(self, stage):
         if stage == "fit":
-            self.train_dataset = ShallowWaterDataset(self.train_data_path, self.transform)
-            self.val_dataset = ShallowWaterDataset(self.train_data_path)
+            train_transform = ShallowWaterTruncateTransform(self.val_split)
+            val_transform = ShallowWaterTruncateTransform(1, self.val_split)
+            self.train_dataset = ShallowWaterDataset(self.train_data_path, train_transform)
+            self.val_dataset = ShallowWaterDataset(self.train_data_path, val_transform)
+            max_value = max(torch.max(x) for x in self.train_dataset[0])
+            self.train_dataset.transform.norm_constant = max_value
+            self.val_dataset.transform.norm_constant = max_value
         elif stage == "test":
             self.test_dataset = ShallowWaterDataset(self.test_data_path)
 

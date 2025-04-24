@@ -33,8 +33,8 @@ class ShallowWaterDataset(torch.utils.data.Dataset):
         with open(path, "rb") as f:
             data = pickle.load(f)
             self.frames = data["frames"] # num_samples, num_frames, px, py
-            self.latent_times = data["latent_times"] # num_samples, num_timepoints
             self.latent_sins = data["latent_sins"] # num_samples, num_timepoints
+            self.latent_times = data["latent_times"] # num_samples, num_timepoints
             self.time = data["time"] # 10
             self.dt = data["dt"] 
             
@@ -43,9 +43,10 @@ class ShallowWaterDataset(torch.utils.data.Dataset):
 
     def __getitem__(self, index):
         frames = torch.tensor(self.frames[index]).double()
+        latent_sins = torch.tensor(self.latent_sins[index]).double()
         if self.transform is not None: 
-            return self.transform(frames)
-        return frames
+            return self.transform((frames, latent_sins))
+        return frames, latent_sins
 
     def __len__(self):
         return self.frames.shape[0]
