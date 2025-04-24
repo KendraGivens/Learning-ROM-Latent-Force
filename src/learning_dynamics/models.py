@@ -150,10 +150,10 @@ class ShallowWaterPEGPVAEModel(L.LightningModule):
 
     def on_train_epoch_start(self):
         epoch = self.current_epoch
-        self.beta.copy_(torch.tensor(min(1.0, (epoch + 1) / float(self.kld_warmup_epochs+1))))
+        # self.beta.copy_(torch.tensor(min(1.0, (epoch + 1) / float(self.kld_warmup_epochs+1))))
 
-        # self.beta.copy_(torch.tensor(min(1.0, (epoch + 1) / float(self.kld_warmup_epochs+1)*50)))
-        # self.beta = min(self.beta, 50.0)
+        self.beta.copy_(torch.tensor(min(1.0, (epoch + 1) / float(self.kld_warmup_epochs+1)*50)))
+        self.beta = min(self.beta, 50.0)
 
     def _step(self, mode, batch):
         Dq =  nn.functional.softplus(self.Dq) # constrain to be > 0 
