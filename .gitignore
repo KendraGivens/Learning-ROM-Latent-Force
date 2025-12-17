@@ -1,6 +1,13 @@
-/scripts/output
+/scripts/finger_training/logs
+/scripts/finger_training/model_checkpoints
+/scripts/finger_training/test_batches
+
+/scripts/pendulum_training/logs
+/scripts/pendulum_training/model_checkpoints
+/scripts/pendulum_training/test_batches
+
 /data
-/notebooks/lightning_logs
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

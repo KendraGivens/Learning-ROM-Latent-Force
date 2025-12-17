@@ -3,12 +3,12 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "learning_dynamics"
+name = "learning_rom_soft_robot"
 version = "0.0.1"
 authors = [
   {name="Kendra Givens", email="kendralee157@gmail.com"},
 ]
-description = "Learning dynanmics with unknown external latent force"
+description = "Learning rom of soft robot with unknown external latent force"
 
 readme = "README.md"
 license = { file="LICENSE" }
@@ -20,8 +20,8 @@ dependencies = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/KendraGivens/Learning-Dynamics-Latent-Force"
-"Bug Tracker" = "https://github.com/KendraGivens/Learning-Dynamics-Latent-Force/issues"
+"Homepage" = "https://github.com/KendraGivens/Learning-ROM-Latent-Force"
+"Bug Tracker" = "https://github.com/KendraGivens/Learning-ROM-Latent-Force/issues"
 
 [tool.ruff]
 line-length = 100

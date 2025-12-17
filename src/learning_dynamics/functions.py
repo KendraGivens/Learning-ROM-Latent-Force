@@ -14,9 +14,10 @@ def truncated_normal(t, mean=0.0, std=0.01):
 
 def gauss_cross_entropy(mu1, var1, mu2, var2):
     term0 = math.log(2*math.pi)
-    term1 = torch.log(torch.abs(var2)) #CHANGE 0.001
-    term2 = (var1 + mu1**2 - 2 * mu1 * mu2 + mu2**2) / (torch.abs(var2)) #CHANGE 0.001
-
+    # term1 = torch.log(torch.abs(var2))
+    term1 = torch.log(var2)
+    # term2 = (var1 + mu1**2 - 2 * mu1 * mu2 + mu2**2) / (torch.abs(var2)) 
+    term2 = (var1 + mu1**2 - 2 * mu1 * mu2 + mu2**2) / var2
     cross_entropy = -0.5*(term0 + term1 + term2)
 
     return cross_entropy

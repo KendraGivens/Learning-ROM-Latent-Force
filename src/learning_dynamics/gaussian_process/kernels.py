@@ -15,13 +15,10 @@ def kernel_ode(X,Y,l=1,freq=0.6,damping=0.05):
         return out
     
     device = X.device
-    l = torch.tensor(l, device=device).double()
-    # freq = torch.tensor(freq, device=device).double()
-    # damping = torch.tensor(damping, device=device).double()
 
     d_ode=freq**2 
     c_ode=2*damping*freq
-    alpha=c_ode/2
+    alpha=c_ode /2
     w=torch.sqrt(4*d_ode-c_ode**2)/2
     
     length_X=X.numel()
@@ -45,11 +42,9 @@ def kernel_ode(X,Y,l=1,freq=0.6,damping=0.05):
 
     return Sigma
 
-def kernel_sq(x1, x2, length_scale, nat_freq=None, damp_ratio=None):
+def kernel_rbf(x1, x2, length_scale):
     length_scale = torch.tensor(length_scale, dtype=x1.dtype, device=x1.device)
-    
     diff = x1.unsqueeze(-1) - x2.unsqueeze(-2)
-    
     cov_matrix = torch.exp(-0.5 * (diff / length_scale)**2)
     
     return cov_matrix
