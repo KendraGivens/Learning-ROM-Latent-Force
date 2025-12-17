@@ -1,1 +1,1 @@
-# Learning-Dynamics-Latent-Force
+# Learning-ROM-Latent-Force
